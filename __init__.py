@@ -43,7 +43,7 @@ def register(ctx):
         name="beer",
         description="Take a drink / check your drunkenness / sober up.",
         handler=cmd_beer,
-        args_hint="[status|soda|1-5]",
+        args_hint="status|soda|1|2|3|4|5",
     )
 
 
