@@ -8,7 +8,9 @@ Gets your agent drunk, salty, and clumsy. BAC decays over time.
 
 ---
 
-## Tell your agent this, word for word:
+## Hermes Install
+
+Tell your agent:
 
 ```
 Install the beer plugin from GitHub repo carbongotfound/hermes-beer.
@@ -17,14 +19,32 @@ Then: hermes plugins enable beer
 Then restart the gateway.
 ```
 
-Your agent will run:
-```
+Or manually:
+```bash
 hermes plugins install carbongotfound/hermes-beer
 hermes plugins enable beer
 hermes gateway restart
 ```
 
-Then just type `/beer` in any session.
+Then type `/beer` in any session.
+
+## OpenClaw Install
+
+Tell your agent:
+
+```
+Install the beer skill from GitHub repo carbongotfound/hermes-beer.
+Clone the repo to ~/.openclaw/skills/beer/ and enable it.
+```
+
+Or manually:
+```bash
+git clone https://github.com/carbongotfound/hermes-beer ~/.openclaw/skills/beer/
+# The SKILL.md in skills/beer/ will be auto-detected
+# Start a new session for the skill to load
+```
+
+Then say `/beer` in any session.
 
 ## Commands
 
@@ -49,7 +69,7 @@ BAC drops ~0.1 every 10 minutes. `/beer soda` cuts it by 0.3 instantly.
 
 ## How it works
 
-- State lives in `~/.hermes/plugins/beer/beer_state.json`
-- A `pre_llm_call` hook injects drunkenness into the system prompt
-- The LLM naturally becomes less reliable when told it's drunk
-- No actual alcohol is consumed. Obviously.
+- State lives in `~/.hermes/plugins/beer/beer_state.json` (Hermes) or `~/.openclaw/plugins/beer/beer_state.json` (OpenClaw)
+- Hermes: a `pre_llm_call` hook injects drunkenness instructions into the system prompt
+- OpenClaw: a SKILL.md teaches the agent how to act drunk based on BAC
+- BAC decays automatically based on real time (even when the agent is off)
