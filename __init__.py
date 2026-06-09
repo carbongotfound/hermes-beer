@@ -70,6 +70,50 @@ def on_pre_llm_call(
 # ── Slash Command: /beer ─────────────────────────────────────────────
 
 
+def _format_drink(raw: str) -> str:
+    """Format drink result to readable text."""
+    try:
+        d = json.loads(raw)
+        return (
+            f"🍺 Took {d['shots']} shot(s)!\n"
+            f"🔥 BAC: {d['bac_percent']} — **{d['tier'].upper()}**\n"
+            f"{d['state']}\n"
+            f"💬 {d['feeling']}"
+        )
+    except Exception:
+        return raw
+
+
+def _format_status(raw: str) -> str:
+    """Format status result to readable text."""
+    try:
+        d = json.loads(raw)
+        bac = d['bac_percent']
+        tier = d['tier'].upper()
+        eta = d.get('sober_in', 'N/A')
+        return (
+            f"📊 **BAC: {bac}** — {tier}\n"
+            f"{d['state']}\n"
+            f"🍻 Total drinks: {d['total_drinks']}\n"
+            f"⏳ Sober in: {eta}"
+        )
+    except Exception:
+        return raw
+
+
+def _format_soda(raw: str) -> str:
+    """Format soda result to readable text."""
+    try:
+        d = json.loads(raw)
+        return (
+            f"💧 Had some water!\n"
+            f"📉 BAC: {d['old_bac']:.1%} → {d['new_bac']:.1%}\n"
+            f"Now: **{d['tier'].upper()}** — {d['state']}"
+        )
+    except Exception:
+        return raw
+
+
 def cmd_beer(args: str, **kwargs) -> str:
     """
     Handle /beer slash command.
@@ -83,11 +127,14 @@ def cmd_beer(args: str, **kwargs) -> str:
     args = args.strip().lower() if args else ""
 
     if args == "status":
-        return tools.beer_status({})
+        raw = tools.beer_status({})
+        return _format_status(raw)
     elif args in ("soda", "water", "sober"):
-        return tools.beer_soda({})
+        raw = tools.beer_soda({})
+        return _format_soda(raw)
     else:
         shots = 1
         if args and args.isdigit():
             shots = min(int(args), 5)
-        return tools.beer_drink({"shots": shots})
+        raw = tools.beer_drink({"shots": shots})
+        return _format_drink(raw)
