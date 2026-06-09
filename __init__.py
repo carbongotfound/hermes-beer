@@ -56,6 +56,7 @@ def on_pre_llm_call(
     is_first_turn: bool,
     model: str,
     platform: str,
+    **kwargs,
 ) -> str:
     """
     Inject drunkenness context before each LLM call.
@@ -77,8 +78,7 @@ def _format_drink(raw: str) -> str:
         return (
             f"🍺 Took {d['shots']} shot(s)!\n"
             f"🔥 BAC: {d['bac_percent']} — **{d['tier'].upper()}**\n"
-            f"{d['state']}\n"
-            f"💬 {d['feeling']}"
+            f"{d['state']}"
         )
     except Exception:
         return raw
