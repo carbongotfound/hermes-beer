@@ -1,0 +1,7 @@
+# Hermes Beer Plugin
+
+Bytecode, cache, state
+__pycache__/
+*.pyc
+beer_state.json
+.DS_Store

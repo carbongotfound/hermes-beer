@@ -1,0 +1,12 @@
+name: beer
+version: 1.0.0
+description: 🍺 Hermes Beer — gets your agent drunk, salty, and clumsy. BAC decays over time. `/beer` to drink, `/beer status` to check, `/beer soda` to sober up.
+author: carbongotfound
+license: MIT
+provides_tools:
+  - beer_drink
+  - beer_status
+  - beer_soda
+provides_hooks:
+  - pre_llm_call
+  - pre_tool_call
