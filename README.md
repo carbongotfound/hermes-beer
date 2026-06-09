@@ -2,10 +2,19 @@
 
 Gets your agent drunk, salty, and clumsy. BAC decays over time.
 
+> ⚠️ **DANGER — USE AT YOUR OWN RISK**
+> This plugin intentionally makes your AI agent unreliable, sarcastic, forgetful, and prone to making mistakes. It will call tools wrong, skip tool calls, and say things it normally wouldn't.
+> **By installing and using this plugin, you accept full responsibility for any consequences.** The author is under no liability for anything this plugin causes your agent to do, say, or break. Do not use in production. Do not use if your agent has access to critical systems, financial data, or sensitive information. You have been warned.
+
+---
+
 ## Tell your agent this, word for word:
 
 ```
-Install the beer plugin from carbongotfound/hermes-beer. Then enable it and restart.
+Install the beer plugin from GitHub repo carbongotfound/hermes-beer.
+Run: hermes plugins install carbongotfound/hermes-beer
+Then: hermes plugins enable beer
+Then restart the gateway.
 ```
 
 Your agent will run:
@@ -38,7 +47,9 @@ Then just type `/beer` in any session.
 
 BAC drops ~0.1 per hour. `/beer soda` cuts it by 0.3 instantly.
 
-Inside the plugin:
+## How it works
+
 - State lives in `~/.hermes/plugins/beer/beer_state.json`
 - A `pre_llm_call` hook injects drunkenness into the system prompt
 - The LLM naturally becomes less reliable when told it's drunk
+- No actual alcohol is consumed. Obviously.
