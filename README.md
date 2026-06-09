@@ -45,7 +45,7 @@ Then just type `/beer` in any session.
 | Very Drunk | Forgets tools, salty |
 | WASTED | Maximum chaos, can't function |
 
-BAC drops ~0.1 per hour. `/beer soda` cuts it by 0.3 instantly.
+BAC drops ~0.1 every 10 minutes. `/beer soda` cuts it by 0.3 instantly.
 
 ## How it works
 

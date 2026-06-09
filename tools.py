@@ -13,7 +13,7 @@ STATE_DIR = Path.home() / ".hermes" / "plugins" / "beer"
 STATE_FILE = STATE_DIR / "beer_state.json"
 
 # How fast BAC decays per second of real time
-DECAY_PER_SECOND = 0.1 / 3600  # 0.1 per hour
+DECAY_PER_SECOND = 0.1 / 600  # 0.1 per 10 minutes
 
 DEFAULT_STATE = {
     "bac": 0.0,
@@ -220,11 +220,10 @@ def _get_random_feeling(tier: str) -> str:
 def _estimate_sober_time(bac: float) -> str:
     if bac <= 0:
         return "Already sober."
-    hours = bac / 0.1  # 0.1 BAC per hour decay
-    if hours < 1:
-        mins = int(hours * 60)
+    mins = int(bac / 0.1 * 10)  # 10 min per 0.1 BAC
+    if mins < 60:
         return f"~{mins} minutes"
-    return f"~{hours:.1f} hours"
+    return f"~{mins//60}h{mins%60}m"
 
 
 # ── Hook helpers ────────────────────────────────────────────────────────
