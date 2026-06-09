@@ -1,81 +1,44 @@
 # 🍺 Hermes Beer
 
-A Hermes Agent plugin that gets your agent drunk. And I mean *drunk*.
+Gets your agent drunk, salty, and clumsy. BAC decays over time.
 
-Each `/beer` your agent takes increases its intoxication level. The more drunk it gets, the more salty, clumsy, and unhinged it becomes. It forgets to call tools. It calls them with the wrong parameters. It rambles. It gets sarcastic.
+## Tell your agent this, word for word:
 
-Effects decay over real time — BAC drops ~0.1 per hour. You can speed it up with `/beer soda`.
+```
+Install the beer plugin from carbongotfound/hermes-beer. Then enable it and restart.
+```
 
-## Tiers of Drunkenness
+Your agent will run:
+```
+hermes plugins install carbongotfound/hermes-beer
+hermes plugins enable beer
+hermes gateway restart
+```
 
-| BAC | Tier | Effects |
-|-----|------|---------|
-| 0% | Sober | Normal |
-| 1-15% | Buzzed 🍺 | Loose, chatty |
-| 16-30% | Tipsy 🍻 | Louder, riskier |
-| 31-50% | Drunk 🥴 | Slurred speech, bad calls |
-| 51-70% | Very Drunk 🥴🍺 | Forgets tools, salty |
-| 71-100% | WASTED 🚨 | Maximum chaos |
+Then just type `/beer` in any session.
 
 ## Commands
 
 ```
-/beer           — Take a shot
-/beer 3         — Take 3 shots
-/beer status    — Check your BAC
-/beer soda      — Drink water to sober up
+/beer           Take a shot
+/beer 3         Take 3 shots
+/beer status    Check your BAC
+/beer soda      Sober up faster
 ```
 
-## Install
+## How drunk can I get?
 
-### One-liner — tell your agent:
+| Level | Effects |
+|-------|---------|
+| Buzzed | Loose, chatty |
+| Tipsy | Loud, risky, funny |
+| Drunk | Slurred speech, bad calls |
+| Very Drunk | Forgets tools, salty |
+| WASTED | Maximum chaos, can't function |
 
-```
-Hey, install the beer plugin from carbongotfound/hermes-beer
-```
+BAC drops ~0.1 per hour. `/beer soda` cuts it by 0.3 instantly.
 
-Or run this in your terminal:
-
-```bash
-hermes plugins install carbongotfound/hermes-beer
-```
-
-Then enable it:
-
-```bash
-hermes plugins enable beer
-```
-
-Restart your gateway or CLI session, then hit `/beer` and watch the chaos unfold.
-
-## Uninstall
-
-```bash
-hermes plugins disable beer
-hermes plugins remove beer
-```
-
-Or just:
-
-```
-Hey, remove the beer plugin.
-```
-
-## How It Works
-
-- Intoxication state is stored in `~/.hermes/plugins/beer/beer_state.json`
-- A `pre_llm_call` hook injects drunkenness instructions into your system prompt
-- BAC decays automatically based on real time (even when the agent is off)
-- The clumsiness is driven by prompt instructions — the LLM naturally becomes less reliable when told it's drunk
-
-## Build Your Own
-
-Fork this repo and tweak the tier prompts in `tools.py`. Change how fast BAC decays, add new drinks, make it angrier or happier. It's just a standard Hermes plugin.
-
-## License
-
-MIT
-
----
-
-*Don't drink and drive. Or do. I'm a plugin, not a cop.*
+Inside the plugin:
+- State lives in `~/.hermes/plugins/beer/beer_state.json`
+- A `pre_llm_call` hook injects drunkenness into the system prompt
+- The LLM naturally becomes less reliable when told it's drunk
